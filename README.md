@@ -100,6 +100,29 @@ cp dist/<lang>.so ~/.local/share/lunarvim/lvim/plugins/nvim-treesitter/parser/
 CI (`.github/workflows/build.yaml`) rebuilds on every push to `main` and
 re-uploads the full `dist/*` to the release.
 
+### LSP via static `ftplugin/`
+
+`ftplugin/` is checked into the repo and replaces what `lua/lvim/lsp/templates.lua`
+used to generate at boot. Neovim auto-loads `ftplugin/<filetype>.lua` when entering
+a matching buffer; each file calls `lsp.manager.setup("<server>")`. Because a server
+only ignites when mason has installed it **and** its binary is on `$PATH`
+(`lsp/manager.lua` → `launch_server`), a file can list many candidate servers
+while only the installed ones actually start.
+
+The directory is a mix of two sources (same-named files are overwritten by the
+user version):
+- **Auto-generated files** (complete, unfiltered against mason-lspconfig's
+  filetype mapping) — one per known filetype, each attempting every mapped server.
+- **User hand-written files** — explicit `cmd` pointing at system-installed
+  binaries (`ruff`, `ty`, `lua-language-server`, …) plus null-ls
+  formatters/linters/code-actions, migrated from the former
+  `~/.config/lvim/ftplugin/`.
+
+To customize LSP for a filetype, edit its `ftplugin/<ft>.lua`. Regenerate the auto
+base from `plugins/mason-lspconfig.nvim/lua/mason-lspconfig/mappings/filetype.lua`,
+preserving any user-overwritten files. `lsp.templates_dir` in
+`lua/lvim/lsp/config.lua` now points at this repo `ftplugin/` directory.
+
 ## Working on the config
 
 There is no build step, no linter, and no test suite — the config is pure Lua

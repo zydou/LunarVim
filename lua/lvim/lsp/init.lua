@@ -88,7 +88,8 @@ function M.setup()
     end
   end
 
-  if not utils.is_directory(lvim.lsp.templates_dir) then require("lvim.lsp.templates").generate_templates() end
+  -- ftplugin files are pre-generated in ./ftplugin (checked into the repo),
+  -- so there is nothing to generate at boot anymore.
 
   pcall(function() require("nlspsettings").setup(lvim.lsp.nlsp_settings.setup) end)
 

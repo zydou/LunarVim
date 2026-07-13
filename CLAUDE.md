@@ -45,6 +45,28 @@ Beyond LunarVim's defaults, `plugins.lua` also declares these extra plugins (all
 
 Parsers live at `plugins/nvim-treesitter/parser/*.so`, all targeting **ABI 14 (nvim v0.10.x)**, gitignored via `plugins/.gitignore`. `core/treesitter.lua` prepends `plugins/nvim-treesitter/` to `rtp` before setup. Because parsers are prebuilt .so files, `:TSUpdate`/grammar install is bypassed. To add a new language: build it in the `tree-sitter-parsers` repo (`build.py <lang>`, requires `tree-sitter` CLI v0.24.7, ABI 14), drop the resulting `.so` into `plugins/nvim-treesitter/parser/`. `ensure_installed` in `core/treesitter.lua` is only consulted for listings — with precompiled parsers it's effectively inert. ABI matters: a `.so` built for a different ABI will fail to load on v0.10.x.
 
+### ftplugin (static LSP auto-ignite)
+
+`ftplugin/` is **static and checked into the repo** — the runtime generator
+(`templates.lua`) was removed. Neovim auto-loads `ftplugin/<ft>.lua` when entering
+a matching buffer; each file calls `lsp.manager.setup("<server>")`. A server only
+actually starts if mason installed its package **and** the binary is on `$PATH`
+(`lsp/manager.lua` → `launch_server`), so a file may list many candidates but
+only installed ones ignite.
+
+Two populations coexist (user files overwrite auto-generated ones of the same name):
+1. **Auto-generated (complete, unfiltered)** — parsed from mason-lspconfig's
+   `mappings/filetype.lua`; attempts *every* server mapped to the filetype.
+2. **User hand-written** — explicit `cmd` (system binaries like `ruff`, `ty`,
+   `lua-language-server`) plus null-ls formatters/linters/code-actions. These
+   were migrated from the former `~/.config/lvim/ftplugin/` and take precedence.
+
+To override LSP for a filetype, edit the matching `ftplugin/<ft>.lua`. The
+auto base can be regenerated from mason-lspconfig's mapping; preserve the
+user-overwritten files across regeneration. `lsp.templates_dir` in
+`config/defaults.lua` now points at this repo dir (was the generated
+`site/after/ftplugin`).
+
 ## Common commands / how to work on this config
 
 There is no build step. Change a file in `lua/`, then in a running Neovim instance do `:LvimReload` to hot-reload (`config/init.lua` `M:reload()`), or restart Neovim.

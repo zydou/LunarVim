@@ -84,7 +84,9 @@ local skipped_filetypes = { "markdown", "rst", "plaintext", "toml", "proto" }
 local join_paths = require("lvim.utils").join_paths
 
 return {
-  templates_dir = join_paths(get_runtime_dir(), "site", "after", "ftplugin"),
+  -- ftplugin files are pre-generated and checked into the repo under ./ftplugin,
+  -- so this now points there instead of a generated runtime dir.
+  templates_dir = join_paths(get_lvim_base_dir(), "ftplugin"),
   ---@deprecated use vim.diagnostic.config({ ... }) instead
   diagnostics = {},
   document_highlight = false,

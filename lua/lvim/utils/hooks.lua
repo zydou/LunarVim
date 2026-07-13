@@ -18,7 +18,8 @@ function M.run_pre_reload() Log:debug("Starting pre-reload hook") end
 function M.run_post_reload() Log:debug("Starting post-reload hook") end
 
 ---Reset any startup cache files used by lazy.nvim
----It also forces regenerating any template ftplugin files
+---NOTE: ftplugin files are now pre-generated in ./ftplugin and checked into
+---the repo, so this no longer regenerates live templates.
 ---Tip: Useful for clearing any outdated settings
 function M.reset_cache()
   local lvim_modules = {}
@@ -29,7 +30,6 @@ function M.reset_cache()
     end
   end
   Log:trace(string.format("Cache invalidated for core modules: { %s }", table.concat(lvim_modules, ", ")))
-  require("lvim.lsp.templates").generate_templates()
 end
 
 function M.run_post_update()
@@ -49,7 +49,7 @@ function M.run_post_update()
   Log:debug("Syncing core plugins")
   plugin_loader.reload({ reload("lvim.plugins"), lvim.plugins })
   plugin_loader.sync_core_plugins()
-  M.reset_cache() -- force cache clear and templates regen once more
+  M.reset_cache() -- force cache clear once more
 
   if not in_headless then
     vim.schedule(function()
