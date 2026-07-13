@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Setting of terraformls",
+  "properties": {
+    "terraform.codelens.referenceCount": {
+      "default": false,
+      "description": "Display reference counts above top level blocks and attributes.",
+      "scope": "window",
+      "type": "boolean"
+    },
+    "terraform.validation.enableEnhancedValidation": {
+      "default": true,
+      "description": "Enable enhanced validation of Terraform files and modules",
+      "scope": "window",
+      "type": "boolean"
+    }
+  }
+}

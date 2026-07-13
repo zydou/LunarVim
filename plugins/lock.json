@@ -1,0 +1,335 @@
+{
+  "description": "Pinned Neovim plugin sources. Each entry locks a commit hash for reproducible installs.",
+  "plugins": {
+    "alpha-nvim": {
+      "owner": "goolord",
+      "repo": "alpha-nvim",
+      "commit": "29074eeb869a6cbac9ce1fbbd04f5f5940311b32",
+      "source": "https://github.com/goolord/alpha-nvim/archive/29074eeb869a6cbac9ce1fbbd04f5f5940311b32.tar.gz"
+    },
+    "bigfile.nvim": {
+      "owner": "lunarvim",
+      "repo": "bigfile.nvim",
+      "commit": "33eb067e3d7029ac77e081cfe7c45361887a311a",
+      "source": "https://github.com/lunarvim/bigfile.nvim/archive/33eb067e3d7029ac77e081cfe7c45361887a311a.tar.gz"
+    },
+    "bufferline.nvim": {
+      "owner": "akinsho",
+      "repo": "bufferline.nvim",
+      "commit": "73540cb95f8d95aa1af3ed57713c6720c78af915",
+      "source": "https://github.com/akinsho/bufferline.nvim/archive/73540cb95f8d95aa1af3ed57713c6720c78af915.tar.gz"
+    },
+    "cmp-buffer": {
+      "owner": "hrsh7th",
+      "repo": "cmp-buffer",
+      "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa",
+      "source": "https://github.com/hrsh7th/cmp-buffer/archive/3022dbc9166796b644a841a02de8dd1cc1d311fa.tar.gz"
+    },
+    "cmp-cmdline": {
+      "owner": "hrsh7th",
+      "repo": "cmp-cmdline",
+      "commit": "d126061b624e0af6c3a556428712dd4d4194ec6d",
+      "source": "https://github.com/hrsh7th/cmp-cmdline/archive/d126061b624e0af6c3a556428712dd4d4194ec6d.tar.gz"
+    },
+    "cmp-nvim-lsp": {
+      "owner": "hrsh7th",
+      "repo": "cmp-nvim-lsp",
+      "commit": "cbc7b02bb99fae35cb42f514762b89b5126651ef",
+      "source": "https://github.com/hrsh7th/cmp-nvim-lsp/archive/cbc7b02bb99fae35cb42f514762b89b5126651ef.tar.gz"
+    },
+    "cmp-path": {
+      "owner": "hrsh7th",
+      "repo": "cmp-path",
+      "commit": "91ff86cd9c29299a64f968ebb45846c485725f23",
+      "source": "https://github.com/hrsh7th/cmp-path/archive/91ff86cd9c29299a64f968ebb45846c485725f23.tar.gz"
+    },
+    "cmp_luasnip": {
+      "owner": "saadparwaiz1",
+      "repo": "cmp_luasnip",
+      "commit": "05a9ab28b53f71d1aece421ef32fee2cb857a843",
+      "source": "https://github.com/saadparwaiz1/cmp_luasnip/archive/05a9ab28b53f71d1aece421ef32fee2cb857a843.tar.gz"
+    },
+    "Comment.nvim": {
+      "owner": "numToStr",
+      "repo": "Comment.nvim",
+      "commit": "0236521ea582747b58869cb72f70ccfa967d2e89",
+      "source": "https://github.com/numToStr/Comment.nvim/archive/0236521ea582747b58869cb72f70ccfa967d2e89.tar.gz"
+    },
+    "copilot-cmp": {
+      "owner": "zbirenbaum",
+      "repo": "copilot-cmp",
+      "commit": "15fc12af3d0109fa76b60b5cffa1373697e261d1",
+      "source": "https://github.com/zbirenbaum/copilot-cmp/archive/15fc12af3d0109fa76b60b5cffa1373697e261d1.tar.gz"
+    },
+    "copilot.lua": {
+      "owner": "zbirenbaum",
+      "repo": "copilot.lua",
+      "commit": "30321e33b03cb924fdcd6a806a0dc6fa0b0eafb9",
+      "source": "https://github.com/zbirenbaum/copilot.lua/archive/30321e33b03cb924fdcd6a806a0dc6fa0b0eafb9.tar.gz"
+    },
+    "friendly-snippets": {
+      "owner": "rafamadriz",
+      "repo": "friendly-snippets",
+      "commit": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
+      "source": "https://github.com/rafamadriz/friendly-snippets/archive/6cd7280adead7f586db6fccbd15d2cac7e2188b9.tar.gz"
+    },
+    "gitsigns.nvim": {
+      "owner": "lewis6991",
+      "repo": "gitsigns.nvim",
+      "commit": "805610a9393fa231f2c2b49cb521bfa413fadb3d",
+      "source": "https://github.com/lewis6991/gitsigns.nvim/archive/805610a9393fa231f2c2b49cb521bfa413fadb3d.tar.gz"
+    },
+    "glow.nvim": {
+      "owner": "ellisonleao",
+      "repo": "glow.nvim",
+      "commit": "238070a686c1da3bccccf1079700eb4b5e19aea4",
+      "source": "https://github.com/ellisonleao/glow.nvim/archive/238070a686c1da3bccccf1079700eb4b5e19aea4.tar.gz"
+    },
+    "hlchunk.nvim": {
+      "owner": "shellRaining",
+      "repo": "hlchunk.nvim",
+      "commit": "5465dd33ade8676d63f6e8493252283060cd72ca",
+      "source": "https://github.com/shellRaining/hlchunk.nvim/archive/5465dd33ade8676d63f6e8493252283060cd72ca.tar.gz"
+    },
+    "hop.nvim": {
+      "owner": "smoka7",
+      "repo": "hop.nvim",
+      "commit": "efe58182f71fbe592f82fb211ab026f2819e855d",
+      "source": "https://github.com/smoka7/hop.nvim/archive/efe58182f71fbe592f82fb211ab026f2819e855d.tar.gz"
+    },
+    "hydra.nvim": {
+      "owner": "nvimtools",
+      "repo": "hydra.nvim",
+      "commit": "983852960cd4e4e9a1b272df0bd1447495aae755",
+      "source": "https://github.com/nvimtools/hydra.nvim/archive/983852960cd4e4e9a1b272df0bd1447495aae755.tar.gz"
+    },
+    "indent-blankline.nvim": {
+      "owner": "lukas-reineke",
+      "repo": "indent-blankline.nvim",
+      "commit": "9637670896b68805430e2f72cf5d16be5b97a22a",
+      "source": "https://github.com/lukas-reineke/indent-blankline.nvim/archive/9637670896b68805430e2f72cf5d16be5b97a22a.tar.gz"
+    },
+    "lazy.nvim": {
+      "owner": "folke",
+      "repo": "lazy.nvim",
+      "commit": "bef521ac89c8d423f9d092e37b58e8af0c099309",
+      "source": "https://github.com/folke/lazy.nvim/archive/bef521ac89c8d423f9d092e37b58e8af0c099309.tar.gz"
+    },
+    "lualine.nvim": {
+      "owner": "nvim-lualine",
+      "repo": "lualine.nvim",
+      "commit": "0a5a66803c7407767b799067986b4dc3036e1983",
+      "source": "https://github.com/nvim-lualine/lualine.nvim/archive/0a5a66803c7407767b799067986b4dc3036e1983.tar.gz"
+    },
+    "LuaSnip": {
+      "owner": "L3MON4D3",
+      "repo": "LuaSnip",
+      "commit": "1def35377854535bb3b0f4cc7a33c083cdb12571",
+      "source": "https://github.com/L3MON4D3/LuaSnip/archive/1def35377854535bb3b0f4cc7a33c083cdb12571.tar.gz"
+    },
+    "lunar.nvim": {
+      "owner": "lunarvim",
+      "repo": "lunar.nvim",
+      "commit": "08bbc93b96ad698d22fc2aa01805786bcedc34b9",
+      "source": "https://github.com/lunarvim/lunar.nvim/archive/08bbc93b96ad698d22fc2aa01805786bcedc34b9.tar.gz"
+    },
+    "mason-lspconfig.nvim": {
+      "owner": "williamboman",
+      "repo": "mason-lspconfig.nvim",
+      "commit": "273fdde8ac5e51f3a223ba70980e52bbc09d9f6f",
+      "source": "https://github.com/williamboman/mason-lspconfig.nvim/archive/273fdde8ac5e51f3a223ba70980e52bbc09d9f6f.tar.gz"
+    },
+    "mason.nvim": {
+      "owner": "williamboman",
+      "repo": "mason.nvim",
+      "commit": "751b1fcbf3d3b783fcf8d48865264a9bcd8f9b10",
+      "source": "https://github.com/williamboman/mason.nvim/archive/751b1fcbf3d3b783fcf8d48865264a9bcd8f9b10.tar.gz"
+    },
+    "multicursors.nvim": {
+      "owner": "smoka7",
+      "repo": "multicursors.nvim",
+      "commit": "562809aaf203b4c65482a75199166d360f2b9298",
+      "source": "https://github.com/smoka7/multicursors.nvim/archive/562809aaf203b4c65482a75199166d360f2b9298.tar.gz"
+    },
+    "neo-tree.nvim": {
+      "owner": "nvim-neo-tree",
+      "repo": "neo-tree.nvim",
+      "commit": "5d172e8315444dbc32867d1c7b04d8e7e68ec4e1",
+      "source": "https://github.com/nvim-neo-tree/neo-tree.nvim/archive/5d172e8315444dbc32867d1c7b04d8e7e68ec4e1.tar.gz"
+    },
+    "neodev.nvim": {
+      "owner": "folke",
+      "repo": "neodev.nvim",
+      "commit": "ce9a2e8eaba5649b553529c5498acb43a6c317cd",
+      "source": "https://github.com/folke/neodev.nvim/archive/ce9a2e8eaba5649b553529c5498acb43a6c317cd.tar.gz"
+    },
+    "nlsp-settings.nvim": {
+      "owner": "tamago324",
+      "repo": "nlsp-settings.nvim",
+      "commit": "707b43110daf27c1aec8c16c2a92c2cb9a06f8df",
+      "source": "https://github.com/tamago324/nlsp-settings.nvim/archive/707b43110daf27c1aec8c16c2a92c2cb9a06f8df.tar.gz"
+    },
+    "noice.nvim": {
+      "owner": "folke",
+      "repo": "noice.nvim",
+      "commit": "dbfc5fbab19ff1c3e29a3268ffa5eda4c09c72ce",
+      "source": "https://github.com/folke/noice.nvim/archive/dbfc5fbab19ff1c3e29a3268ffa5eda4c09c72ce.tar.gz"
+    },
+    "none-ls.nvim": {
+      "owner": "nvimtools",
+      "repo": "none-ls.nvim",
+      "commit": "3a4826687da4310af379515086d71faca4d21288",
+      "source": "https://github.com/nvimtools/none-ls.nvim/archive/3a4826687da4310af379515086d71faca4d21288.tar.gz"
+    },
+    "nui.nvim": {
+      "owner": "MunifTanjim",
+      "repo": "nui.nvim",
+      "commit": "53e907ffe5eedebdca1cd503b00aa8692068ca46",
+      "source": "https://github.com/MunifTanjim/nui.nvim/archive/53e907ffe5eedebdca1cd503b00aa8692068ca46.tar.gz"
+    },
+    "numb.nvim": {
+      "owner": "nacro90",
+      "repo": "numb.nvim",
+      "commit": "7f564e638d3ba367abf1ec91181965b9882dd509",
+      "source": "https://github.com/nacro90/numb.nvim/archive/7f564e638d3ba367abf1ec91181965b9882dd509.tar.gz"
+    },
+    "nvim-autopairs": {
+      "owner": "windwp",
+      "repo": "nvim-autopairs",
+      "commit": "14e97371b2aab6ee70054c1070a123dfaa3e217e",
+      "source": "https://github.com/windwp/nvim-autopairs/archive/14e97371b2aab6ee70054c1070a123dfaa3e217e.tar.gz"
+    },
+    "nvim-cmp": {
+      "owner": "hrsh7th",
+      "repo": "nvim-cmp",
+      "commit": "cd2cf0c124d3de577fb5449746568ee8e601afc8",
+      "source": "https://github.com/hrsh7th/nvim-cmp/archive/cd2cf0c124d3de577fb5449746568ee8e601afc8.tar.gz"
+    },
+    "nvim-colorizer.lua": {
+      "owner": "norcalli",
+      "repo": "nvim-colorizer.lua",
+      "commit": "a065833f35a3a7cc3ef137ac88b5381da2ba302e",
+      "source": "https://github.com/norcalli/nvim-colorizer.lua/archive/a065833f35a3a7cc3ef137ac88b5381da2ba302e.tar.gz"
+    },
+    "nvim-lastplace": {
+      "owner": "ethanholz",
+      "repo": "nvim-lastplace",
+      "commit": "0bb6103c506315044872e0f84b1f736c4172bb20",
+      "source": "https://github.com/ethanholz/nvim-lastplace/archive/0bb6103c506315044872e0f84b1f736c4172bb20.tar.gz"
+    },
+    "nvim-lspconfig": {
+      "owner": "neovim",
+      "repo": "nvim-lspconfig",
+      "commit": "aa5f4f4ee10b2688fb37fa46215672441d5cd5d9",
+      "source": "https://github.com/neovim/nvim-lspconfig/archive/aa5f4f4ee10b2688fb37fa46215672441d5cd5d9.tar.gz"
+    },
+    "nvim-navic": {
+      "owner": "SmiteshP",
+      "repo": "nvim-navic",
+      "commit": "8649f694d3e76ee10c19255dece6411c29206a54",
+      "source": "https://github.com/SmiteshP/nvim-navic/archive/8649f694d3e76ee10c19255dece6411c29206a54.tar.gz"
+    },
+    "nvim-notify": {
+      "owner": "rcarriga",
+      "repo": "nvim-notify",
+      "commit": "22f29093eae7785773ee9d543f8750348b1a195c",
+      "source": "https://github.com/rcarriga/nvim-notify/archive/22f29093eae7785773ee9d543f8750348b1a195c.tar.gz"
+    },
+    "nvim-surround": {
+      "owner": "kylechui",
+      "repo": "nvim-surround",
+      "commit": "ae298105122c87bbe0a36b1ad20b06d417c0433e",
+      "source": "https://github.com/kylechui/nvim-surround/archive/ae298105122c87bbe0a36b1ad20b06d417c0433e.tar.gz"
+    },
+    "nvim-treesitter": {
+      "owner": "nvim-treesitter",
+      "repo": "nvim-treesitter",
+      "commit": "d5a1c2b0c8ec5bb377a41c1c414b315d6b3e9432",
+      "source": "https://github.com/nvim-treesitter/nvim-treesitter/archive/d5a1c2b0c8ec5bb377a41c1c414b315d6b3e9432.tar.gz"
+    },
+    "nvim-ts-context-commentstring": {
+      "owner": "JoosepAlviste",
+      "repo": "nvim-ts-context-commentstring",
+      "commit": "0bdccb9c67a42a5e2d99384dc9bfa29b1451528f",
+      "source": "https://github.com/JoosepAlviste/nvim-ts-context-commentstring/archive/0bdccb9c67a42a5e2d99384dc9bfa29b1451528f.tar.gz"
+    },
+    "nvim-web-devicons": {
+      "owner": "nvim-tree",
+      "repo": "nvim-web-devicons",
+      "commit": "5b9067899ee6a2538891573500e8fd6ff008440f",
+      "source": "https://github.com/nvim-tree/nvim-web-devicons/archive/5b9067899ee6a2538891573500e8fd6ff008440f.tar.gz"
+    },
+    "plenary.nvim": {
+      "owner": "nvim-lua",
+      "repo": "plenary.nvim",
+      "commit": "08e301982b9a057110ede7a735dd1b5285eb341f",
+      "source": "https://github.com/nvim-lua/plenary.nvim/archive/08e301982b9a057110ede7a735dd1b5285eb341f.tar.gz"
+    },
+    "rainbow-delimiters.nvim": {
+      "owner": "hiphish",
+      "repo": "rainbow-delimiters.nvim",
+      "commit": "cf0da2516b0684596b09c51dbc93c609cdc2f455",
+      "source": "https://github.com/hiphish/rainbow-delimiters.nvim/archive/cf0da2516b0684596b09c51dbc93c609cdc2f455.tar.gz"
+    },
+    "schemastore.nvim": {
+      "owner": "b0o",
+      "repo": "schemastore.nvim",
+      "commit": "8c46453bdf84ad91877effb95e0b6c7b51ea7dda",
+      "source": "https://github.com/b0o/schemastore.nvim/archive/8c46453bdf84ad91877effb95e0b6c7b51ea7dda.tar.gz"
+    },
+    "structlog.nvim": {
+      "owner": "Tastyep",
+      "repo": "structlog.nvim",
+      "commit": "45b26a2b1036bb93c0e83f4225e85ab3cee8f476",
+      "source": "https://github.com/Tastyep/structlog.nvim/archive/45b26a2b1036bb93c0e83f4225e85ab3cee8f476.tar.gz"
+    },
+    "telescope-fzf-native.nvim": {
+      "owner": "nvim-telescope",
+      "repo": "telescope-fzf-native.nvim",
+      "commit": "9ef21b2e6bb6ebeaf349a0781745549bbb870d27",
+      "source": "https://github.com/nvim-telescope/telescope-fzf-native.nvim/archive/9ef21b2e6bb6ebeaf349a0781745549bbb870d27.tar.gz"
+    },
+    "telescope.nvim": {
+      "owner": "nvim-telescope",
+      "repo": "telescope.nvim",
+      "commit": "6312868392331c9c0f22725041f1ec2bef57c751",
+      "source": "https://github.com/nvim-telescope/telescope.nvim/archive/6312868392331c9c0f22725041f1ec2bef57c751.tar.gz"
+    },
+    "todo-comments.nvim": {
+      "owner": "folke",
+      "repo": "todo-comments.nvim",
+      "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5",
+      "source": "https://github.com/folke/todo-comments.nvim/archive/304a8d204ee787d2544d8bc23cd38d2f929e7cc5.tar.gz"
+    },
+    "toggleterm.nvim": {
+      "owner": "akinsho",
+      "repo": "toggleterm.nvim",
+      "commit": "066cccf48a43553a80a210eb3be89a15d789d6e6",
+      "source": "https://github.com/akinsho/toggleterm.nvim/archive/066cccf48a43553a80a210eb3be89a15d789d6e6.tar.gz"
+    },
+    "trouble.nvim": {
+      "owner": "folke",
+      "repo": "trouble.nvim",
+      "commit": "6f380b8826fb819c752c8fd7daaee9ef96d4c689",
+      "source": "https://github.com/folke/trouble.nvim/archive/6f380b8826fb819c752c8fd7daaee9ef96d4c689.tar.gz"
+    },
+    "vim-illuminate": {
+      "owner": "RRethy",
+      "repo": "vim-illuminate",
+      "commit": "e522e0dd742a83506db0a72e1ced68c9c130f185",
+      "source": "https://github.com/RRethy/vim-illuminate/archive/e522e0dd742a83506db0a72e1ced68c9c130f185.tar.gz"
+    },
+    "vim-matchup": {
+      "owner": "andymass",
+      "repo": "vim-matchup",
+      "commit": "aca23ce53ebfe34e02c4fe07e29e9133a2026481",
+      "source": "https://github.com/andymass/vim-matchup/archive/aca23ce53ebfe34e02c4fe07e29e9133a2026481.tar.gz"
+    },
+    "which-key.nvim": {
+      "owner": "folke",
+      "repo": "which-key.nvim",
+      "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a",
+      "source": "https://github.com/folke/which-key.nvim/archive/4433e5ec9a507e5097571ed55c02ea9658fb268a.tar.gz"
+    }
+  }
+}

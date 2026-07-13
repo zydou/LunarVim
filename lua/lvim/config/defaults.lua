@@ -33,7 +33,7 @@ return {
       ui = {
         border = "rounded",
       },
-      root = require("lvim.utils").join_paths(get_runtime_dir(), "site", "pack", "lazy", "opt"),
+      root = require("lvim.utils").join_paths(get_lvim_base_dir(), "plugins"),
       git = {
         timeout = 120,
       },

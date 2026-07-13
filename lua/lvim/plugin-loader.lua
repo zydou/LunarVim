@@ -4,12 +4,12 @@ local utils = require("lvim.utils")
 local Log = require("lvim.core.log")
 local join_paths = utils.join_paths
 
-local plugins_dir = join_paths(get_runtime_dir(), "site", "pack", "lazy", "opt")
+local plugins_dir = join_paths(get_lvim_base_dir(), "plugins")
 
 function plugin_loader.init(opts)
   opts = opts or {}
 
-  local lazy_install_dir = opts.install_path or join_paths(vim.fn.stdpath("data"), "site", "pack", "lazy", "opt", "lazy.nvim")
+  local lazy_install_dir = opts.install_path or join_paths(get_lvim_base_dir(), "plugins", "lazy.nvim")
 
   if not utils.is_directory(lazy_install_dir) then
     print("Initializing first time setup")

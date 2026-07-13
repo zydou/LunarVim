@@ -1,16 +1,21 @@
 -- local require = require("lvim.utils.require").require
+local base_dir = get_lvim_base_dir()
+local function plugin_dir(name)
+  return join_paths(base_dir, "plugins", name)
+end
+
 local core_plugins = {
-  { dir = "~/.local/share/lunarvim/site/pack/lazy/opt/lazy.nvim" },
+  { dir = plugin_dir("lazy.nvim") },
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nvim-lspconfig",
+    dir = plugin_dir("nvim-lspconfig"),
     lazy = true,
     dependencies = {
-      dir = "~/.local/share/lunarvim/site/pack/lazy/opt/mason-lspconfig.nvim",
-      dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nlsp-settings.nvim",
+      dir = plugin_dir("mason-lspconfig.nvim"),
+      dir = plugin_dir("nlsp-settings.nvim"),
     },
   },
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/mason-lspconfig.nvim",
+    dir = plugin_dir("mason-lspconfig.nvim"),
     cmd = { "LspInstall", "LspUninstall" },
     config = function()
       require("mason-lspconfig").setup(lvim.lsp.installer.setup)
@@ -21,12 +26,12 @@ local core_plugins = {
     end,
     lazy = true,
     event = "User FileOpened",
-    dependencies = { dir = "~/.local/share/lunarvim/site/pack/lazy/opt/mason.nvim" },
+    dependencies = { dir = plugin_dir("mason.nvim") },
   },
-  { dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nlsp-settings.nvim", cmd = "LspSettings", lazy = true },
-  { dir = "~/.local/share/lunarvim/site/pack/lazy/opt/none-ls.nvim", lazy = true },
+  { dir = plugin_dir("nlsp-settings.nvim"), cmd = "LspSettings", lazy = true },
+  { dir = plugin_dir("none-ls.nvim"), lazy = true },
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/mason.nvim",
+    dir = plugin_dir("mason.nvim"),
     config = function() require("lvim.core.mason").setup() end,
     cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     build = function()
@@ -37,61 +42,61 @@ local core_plugins = {
   },
 
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/lunar.nvim",
+    dir = plugin_dir("lunar.nvim"),
     lazy = lvim.colorscheme ~= "lunar",
   },
-  { dir = "~/.local/share/lunarvim/site/pack/lazy/opt/structlog.nvim", lazy = true },
+  { dir = plugin_dir("structlog.nvim"), lazy = true },
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/plenary.nvim",
+    dir = plugin_dir("plenary.nvim"),
     cmd = { "PlenaryBustedFile", "PlenaryBustedDirectory" },
     lazy = true,
   },
   -- Telescope
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/telescope.nvim",
+    dir = plugin_dir("telescope.nvim"),
     branch = "0.1.x",
     config = function() require("lvim.core.telescope").setup() end,
-    dependencies = { dir = "~/.local/share/lunarvim/site/pack/lazy/opt/telescope-fzf-native.nvim" },
+    dependencies = { dir = plugin_dir("telescope-fzf-native.nvim") },
     lazy = true,
     cmd = "Telescope",
     enabled = lvim.builtin.telescope.active,
   },
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/telescope-fzf-native.nvim",
+    dir = plugin_dir("telescope-fzf-native.nvim"),
     build = "make",
     lazy = true,
     enabled = lvim.builtin.telescope.active,
   },
   -- Install nvim-cmp, and buffer source as a dependency
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nvim-cmp",
+    dir = plugin_dir("nvim-cmp"),
     config = function()
       if lvim.builtin.cmp then require("lvim.core.cmp").setup() end
     end,
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
-      dir = "~/.local/share/lunarvim/site/pack/lazy/opt/cmp-nvim-lsp",
-      dir = "~/.local/share/lunarvim/site/pack/lazy/opt/cmp_luasnip",
-      dir = "~/.local/share/lunarvim/site/pack/lazy/opt/cmp-buffer",
-      dir = "~/.local/share/lunarvim/site/pack/lazy/opt/cmp-path",
-      dir = "~/.local/share/lunarvim/site/pack/lazy/opt/cmp-cmdline",
+      dir = plugin_dir("cmp-nvim-lsp"),
+      dir = plugin_dir("cmp_luasnip"),
+      dir = plugin_dir("cmp-buffer"),
+      dir = plugin_dir("cmp-path"),
+      dir = plugin_dir("cmp-cmdline"),
     },
   },
-  { dir = "~/.local/share/lunarvim/site/pack/lazy/opt/cmp-nvim-lsp", lazy = true },
-  { dir = "~/.local/share/lunarvim/site/pack/lazy/opt/cmp_luasnip", lazy = true },
-  { dir = "~/.local/share/lunarvim/site/pack/lazy/opt/cmp-buffer", lazy = true },
-  { dir = "~/.local/share/lunarvim/site/pack/lazy/opt/cmp-path", lazy = true },
+  { dir = plugin_dir("cmp-nvim-lsp"), lazy = true },
+  { dir = plugin_dir("cmp_luasnip"), lazy = true },
+  { dir = plugin_dir("cmp-buffer"), lazy = true },
+  { dir = plugin_dir("cmp-path"), lazy = true },
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/cmp-cmdline",
+    dir = plugin_dir("cmp-cmdline"),
     lazy = true,
     enabled = lvim.builtin.cmp and lvim.builtin.cmp.cmdline.enable or false,
   },
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/LuaSnip", -- has submodule, do not use mirror url
+    dir = plugin_dir("LuaSnip"), -- has submodule, do not use mirror url
     config = function()
       local utils = require("lvim.utils")
       local paths = {}
-      if lvim.builtin.luasnip.sources.friendly_snippets then paths[#paths + 1] = utils.join_paths(get_runtime_dir(), "site", "pack", "lazy", "opt", "friendly-snippets") end
+      if lvim.builtin.luasnip.sources.friendly_snippets then paths[#paths + 1] = plugin_dir("friendly-snippets") end
       local user_snippets = utils.join_paths(get_config_dir(), "snippets")
       if utils.is_directory(user_snippets) then paths[#paths + 1] = user_snippets end
       require("luasnip.loaders.from_lua").lazy_load()
@@ -102,38 +107,38 @@ local core_plugins = {
     end,
     event = "InsertEnter",
     dependencies = {
-      dir = "~/.local/share/lunarvim/site/pack/lazy/opt/friendly-snippets",
+      dir = plugin_dir("friendly-snippets"),
     },
   },
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/friendly-snippets",
+    dir = plugin_dir("friendly-snippets"),
     lazy = true,
     cond = lvim.builtin.luasnip.sources.friendly_snippets,
   },
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/neodev.nvim",
+    dir = plugin_dir("neodev.nvim"),
     lazy = true,
   },
 
   -- Autopairs
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nvim-autopairs",
+    dir = plugin_dir("nvim-autopairs"),
     event = "InsertEnter",
     config = function() require("lvim.core.autopairs").setup() end,
     enabled = lvim.builtin.autopairs.active,
     dependencies = {
-      dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nvim-treesitter",
-      dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nvim-cmp",
+      dir = plugin_dir("nvim-treesitter"),
+      dir = plugin_dir("nvim-cmp"),
     },
   },
 
   -- Treesitter
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nvim-treesitter",
+    dir = plugin_dir("nvim-treesitter"),
     -- run = ":TSUpdate",
     config = function()
       local utils = require("lvim.utils")
-      local path = utils.join_paths(get_runtime_dir(), "site", "pack", "lazy", "opt", "nvim-treesitter")
+      local path = plugin_dir("nvim-treesitter")
       vim.opt.rtp:prepend(path) -- treesitter needs to be before nvim's runtime in rtp
       require("lvim.core.treesitter").setup()
     end,
@@ -150,12 +155,12 @@ local core_plugins = {
   },
   {
     -- Lazy loaded by Comment.nvim pre_hook
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nvim-ts-context-commentstring",
+    dir = plugin_dir("nvim-ts-context-commentstring"),
     lazy = true,
   },
 
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/gitsigns.nvim",
+    dir = plugin_dir("gitsigns.nvim"),
     config = function() require("lvim.core.gitsigns").setup() end,
     event = "User FileOpened",
     cmd = "Gitsigns",
@@ -164,7 +169,7 @@ local core_plugins = {
 
   -- Whichkey
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/which-key.nvim",
+    dir = plugin_dir("which-key.nvim"),
     config = function() require("lvim.core.which-key").setup() end,
     cmd = "WhichKey",
     event = "VeryLazy",
@@ -173,7 +178,7 @@ local core_plugins = {
 
   -- Comments
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/Comment.nvim",
+    dir = plugin_dir("Comment.nvim"),
     config = function() require("lvim.core.comment").setup() end,
     keys = { { "gc", mode = { "n", "v" } }, { "gb", mode = { "n", "v" } } },
     event = "User FileOpened",
@@ -182,7 +187,7 @@ local core_plugins = {
 
   -- Icons
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nvim-web-devicons",
+    dir = plugin_dir("nvim-web-devicons"),
     enabled = lvim.use_icons,
     lazy = true,
   },
@@ -190,7 +195,7 @@ local core_plugins = {
   -- Status Line and Bufferline
   {
     -- "hoob3rt/lualine.nvim",
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/lualine.nvim",
+    dir = plugin_dir("lualine.nvim"),
     -- "Lunarvim/lualine.nvim",
     config = function() require("lvim.core.lualine").setup() end,
     event = "VimEnter",
@@ -199,14 +204,14 @@ local core_plugins = {
 
   -- breadcrumbs
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nvim-navic",
+    dir = plugin_dir("nvim-navic"),
     config = function() require("lvim.core.breadcrumbs").setup() end,
     event = "User FileOpened",
     enabled = lvim.builtin.breadcrumbs.active,
   },
 
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/bufferline.nvim",
+    dir = plugin_dir("bufferline.nvim"),
     config = function() require("lvim.core.bufferline").setup() end,
     branch = "main",
     event = "User FileOpened",
@@ -215,7 +220,7 @@ local core_plugins = {
 
   -- alpha
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/alpha-nvim",
+    dir = plugin_dir("alpha-nvim"),
     config = function() require("lvim.core.alpha").setup() end,
     enabled = lvim.builtin.alpha.active,
     event = "VimEnter",
@@ -223,7 +228,7 @@ local core_plugins = {
 
   -- Terminal
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/toggleterm.nvim",
+    dir = plugin_dir("toggleterm.nvim"),
     branch = "main",
     init = function() require("lvim.core.terminal").init() end,
     config = function() require("lvim.core.terminal").setup() end,
@@ -241,38 +246,263 @@ local core_plugins = {
 
   -- SchemaStore
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/schemastore.nvim",
+    dir = plugin_dir("schemastore.nvim"),
     lazy = true,
   },
 
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/vim-illuminate",
+    dir = plugin_dir("vim-illuminate"),
     config = function() require("lvim.core.illuminate").setup() end,
     event = "User FileOpened",
     enabled = lvim.builtin.illuminate.active,
   },
 
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/indent-blankline.nvim",
+    dir = plugin_dir("indent-blankline.nvim"),
     config = function() require("lvim.core.indentlines").setup() end,
     event = "User FileOpened",
     enabled = lvim.builtin.indentlines.active,
   },
 
   {
-    dir = "~/.local/share/lunarvim/site/pack/lazy/opt/bigfile.nvim",
+    dir = plugin_dir("bigfile.nvim"),
     config = function()
       pcall(function() require("bigfile").setup(lvim.builtin.bigfile.config) end)
     end,
     enabled = lvim.builtin.bigfile.active,
-    dependencies = { dir = "~/.local/share/lunarvim/site/pack/lazy/opt/nvim-treesitter" },
+    dependencies = { dir = plugin_dir("nvim-treesitter") },
     event = { "FileReadPre", "BufReadPre", "User FileOpened" },
   },
-}
---- NOTE: get_short_name / get_default_sha1 / commit-locking logic removed.
---- All core plugins are installed locally via `dir =` (offline, no git),
---- so the git-commit-locking code path is dead and caused crashes when
---- LVIM_DEV_MODE was unset (e.g. headless invocations from build scripts).
+  { -- pick up where you left off
+    dir = plugin_dir("nvim-lastplace"),
+    event = "BufRead",
+    config = function()
+      require("nvim-lastplace").setup({
+        lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+        lastplace_ignore_filetype = { "commit", "gitrebase", "svn", "hgcommit" },
+        lastplace_open_folds = true,
+      })
+    end,
+  },
+  { -- pretty list for diagnostics, references, telescope results
+    dir = plugin_dir("trouble.nvim"),
+    cmd = "Trouble",
+    opts = {},
+  },
+  { -- highlight TODO, FIXME, etc.
+    dir = plugin_dir("todo-comments.nvim"),
+    dependencies = { dir = plugin_dir("plenary.nvim") },
+    opts = {},
+  },
+  {
+    dir = plugin_dir("noice.nvim"),
+    event = "VeryLazy",
+    opts = {},
+    dependencies = {
+      dir = plugin_dir("nui.nvim"),
+      dir = plugin_dir("nvim-notify"),
+    },
+    config = function()
+      require("noice").setup({
+        lsp = {
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
+        },
+        routes = {
+          {
+            filter = { event = "msg_show", kind = "", find = "written" },
+            opts = { skip = true },
+          },
+        },
+        presets = {
+          bottom_search = true,
+          command_palette = true,
+          long_message_to_split = true,
+          inc_rename = false,
+          lsp_doc_border = true,
+        },
+      })
+    end,
+  },
+  { -- motion on speed
+    dir = plugin_dir("hop.nvim"),
+    event = "BufRead",
+    opts = { keys = "etovxqpdygfblzhckisuran" },
+    config = function()
+      require("hop").setup()
+      vim.api.nvim_set_keymap("n", "t", ":HopChar1CurrentLine<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "f", ":HopWord<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "F", ":HopWordAC<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "S", ":HopLine<cr>", { silent = true })
+    end,
+  },
+  { -- file explorer
+    dir = plugin_dir("neo-tree.nvim"),
+    dependencies = {
+      dir = plugin_dir("plenary.nvim"),
+      dir = plugin_dir("nvim-web-devicons"),
+      dir = plugin_dir("nui.nvim"),
+    },
+    config = function()
+      require("neo-tree").setup({
+        sources = { "filesystem", "document_symbols", "git_status" },
+        close_if_last_window = true,
+        filesystem = {
+          hijack_netrw_behavior = "open_current",
+          filtered_items = {
+            force_visible_in_empty_folder = true,
+            hide_dotfiles = false,
+            hide_gitignored = false,
+            hide_by_name = { "node_modules", ".venv" },
+            always_show = { ".github", ".devcontainer", ".in", ".out" },
+            never_show = { ".DS_Store", "thumbs.db" },
+          },
+        },
+        document_symbols = { follow_cursor = true },
+        window = { width = 42 },
+        source_selector = {
+          winbar = true,
+          statusline = true,
+          sources = {
+            { source = "filesystem" },
+            { source = "git_status" },
+            { source = "document_symbols" },
+          },
+        },
+        default_component_configs = {
+          icon = {
+            folder_closed = lvim.icons.ui.Folder,
+            folder_open = lvim.icons.ui.FolderOpen,
+            folder_empty = lvim.icons.ui.EmptyFolder,
+            default = lvim.icons.ui.File,
+            highlight = "NeoTreeFileIcon",
+          },
+          modified = { symbol = lvim.icons.git.LineModified, highlight = "NeoTreeModified" },
+          symlink_target = { enabled = true },
+          git_status = {
+            symbols = {
+              added = lvim.icons.git.LineAdded,
+              modified = lvim.icons.git.LineModified,
+              deleted = lvim.icons.git.FileDeleted,
+              renamed = lvim.icons.git.FileRenamed,
+              ignored = lvim.icons.git.FileIgnored,
+              conflict = lvim.icons.git.FileUnmerged,
+              untracked = "",
+              unstaged = "󰄱",
+              staged = "",
+            },
+          },
+          file_size = { enabled = true, required_width = 40 },
+        },
+      })
+    end,
+  },
+  { -- markdown preview
+    dir = plugin_dir("glow.nvim"),
+    config = function()
+      require("glow").setup({
+        border = "shadow",
+        pager = false,
+        width = 180,
+        height = 120,
+        width_ratio = 0.8,
+        height_ratio = 0.9,
+      })
+    end,
+  },
+  { -- jump to line number
+    dir = plugin_dir("numb.nvim"),
+    event = "BufRead",
+    config = function()
+      require("numb").setup({ show_numbers = true, show_cursorline = true })
+    end,
+  },
+  { -- highlight matching words
+    dir = plugin_dir("vim-matchup"),
+    config = function() vim.g.matchup_matchparen_offscreen = { method = "popup" } end,
+  },
+  { -- multi-cursor
+    dir = plugin_dir("multicursors.nvim"),
+    event = "VeryLazy",
+    dependencies = { dir = plugin_dir("hydra.nvim") },
+    opts = {
+      hint_config = { float_opts = { border = "none" }, position = "bottom-right" },
+      generate_hints = {
+        normal = true, insert = true, extend = true,
+        config = { column_count = 1 },
+      },
+    },
+    cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
+    keys = {
+      { mode = { "v", "n" }, "<Leader>m", "<cmd>MCstart<cr>", desc = "Create a selection for selected text or word under the cursor" },
+    },
+  },
+  { -- colorizer
+    dir = plugin_dir("nvim-colorizer.lua"),
+    config = function()
+      require("colorizer").setup({ "*" }, {
+        RGB = true, RRGGBB = true, RRGGBBAA = true, names = true,
+        rgb_fn = true, hsl_fn = true, css = true, css_fn = true,
+      })
+    end,
+  },
+  { -- rainbow parentheses
+    dir = plugin_dir("rainbow-delimiters.nvim"),
+  },
+  { -- surround delimiter pairs
+    dir = plugin_dir("nvim-surround"),
+    event = "VeryLazy",
+    config = function() require("nvim-surround").setup({}) end,
+  },
+  { -- highlight code chunks and indent lines
+    dir = plugin_dir("hlchunk.nvim"),
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("hlchunk").setup({
+        chunk = {
+          enable = true,
+          use_treesitter = true,
+          chars = { horizontal_line = "─", vertical_line = "│", left_top = "╭", left_bottom = "╰", right_arrow = ">" },
+          style = { "#0ba1e0", "#c21f30" },
+        },
+      })
+    end,
+  },
+  { -- GitHub Copilot
+    dir = plugin_dir("copilot-cmp"),
+    enabled = true,
+    event = "InsertEnter",
+    dependencies = { dir = plugin_dir("copilot.lua") },
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup({
+          panel = {
+            enabled = true, auto_refresh = true,
+            keymap = { jump_prev = "[[", jump_next = "]]", accept = "<CR>", refresh = "gr", open = "<M-CR>" },
+            layout = { position = "right", ratio = 0.4 },
+          },
+          suggestion = {
+            enabled = false, auto_trigger = false, debounce = 75,
+            keymap = { accept = "<M-l>", accept_word = false, accept_line = false, next = "<M-]>", prev = "<M-[>", dismiss = "<C-]>" },
+          },
+          filetypes = {
+            yaml = true, markdown = true, help = false, gitcommit = true, gitrebase = false,
+            hgcommit = false, svn = false, cvs = false, ["."] = false,
+            sh = function()
+              if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then return false end
+              return true
+            end,
+          },
+          copilot_node_command = "/home/zydou/.config/nvm/versions/node/v22.22.2/bin/node",
+          server_opts_overrides = {},
+        })
+        require("copilot_cmp").setup()
+      end, 100)
+    end,
+  },
 
 -- local default_snapshot_path = join_paths(get_lvim_base_dir(), "snapshots", "default.json")
 -- local content = vim.fn.readfile(default_snapshot_path)
@@ -296,5 +526,12 @@ local core_plugins = {
 --     spec["commit"] = get_default_sha1(spec)
 --   end
 -- end
+
+--- NOTE: get_short_name / get_default_sha1 / commit-locking logic removed.
+--- All core plugins are installed locally via `dir =` (offline, no git),
+--- so the git-commit-locking code path is dead and caused crashes when
+--- LVIM_DEV_MODE was unset (e.g. headless invocations from build scripts).
+
+}
 
 return core_plugins

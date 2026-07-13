@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Setting of jdtls",
+  "properties": {
+    "java.configuration.workspaceCacheLimit": {
+      "default": 90,
+      "description": "The number of days (if enabled) to keep unused workspace cache data. Beyond this limit, cached workspace data may be removed.",
+      "minimum": 1,
+      "order": 40,
+      "scope": "application",
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "java.home": {
+      "default": null,
+      "deprecationMessage": "This setting is deprecated, please use 'java.jdt.ls.java.home' instead.",
+      "description": "Specifies the folder path to the JDK (17 or more recent) used to launch the Java Language Server.\nOn Windows, backslashes must be escaped, i.e.\n\"java.home\":\"C:\\\\Program Files\\\\Java\\\\jdk-17.0_3\"",
+      "order": 0,
+      "scope": "machine-overridable",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "java.jdt.ls.androidSupport.enabled": {
+      "default": "auto",
+      "enum": [
+        "auto",
+        "on",
+        "off"
+      ],
+      "markdownDescription": "[Experimental] Specify whether to enable Android project importing. When set to `auto`, the Android support will be enabled in Visual Studio Code - Insiders.\n\n**Note:** Only works for Android Gradle Plugin `3.2.0` or higher.",
+      "order": 90,
+      "scope": "window",
+      "type": "string"
+    },
+    "java.jdt.ls.java.home": {
+      "default": null,
+      "description": "Specifies the folder path to the JDK (17 or more recent) used to launch the Java Language Server. This setting will replace the Java extension's embedded JRE to start the Java Language Server. \n\nOn Windows, backslashes must be escaped, i.e.\n\"java.jdt.ls.java.home\":\"C:\\\\Program Files\\\\Java\\\\jdk-17.0_3\"",
+      "order": 10,
+      "scope": "machine-overridable",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "java.jdt.ls.lombokSupport.enabled": {
+      "default": true,
+      "description": "Whether to load lombok processors from project classpath",
+      "order": 70,
+      "scope": "window",
+      "type": "boolean"
+    },
+    "java.jdt.ls.protobufSupport.enabled": {
+      "default": true,
+      "markdownDescription": "Specify whether to automatically add Protobuf output source directories to the classpath.\n\n**Note:** Only works for Gradle `com.google.protobuf` plugin `0.8.4` or higher.",
+      "order": 80,
+      "scope": "window",
+      "type": "boolean"
+    },
+    "java.jdt.ls.vmargs": {
+      "default": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -Xlog:disable",
+      "description": "Specifies extra VM arguments used to launch the Java Language Server. Eg. use `-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -Xlog:disable` to optimize memory usage with the parallel garbage collector",
+      "order": 20,
+      "scope": "machine-overridable",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "java.server.launchMode": {
+      "default": "Hybrid",
+      "description": "The launch mode for the Java extension",
+      "enum": [
+        "Standard",
+        "LightWeight",
+        "Hybrid"
+      ],
+      "enumDescriptions": [
+        "Provides full features such as intellisense, refactoring, building, Maven/Gradle support etc.",
+        "Starts a syntax server with lower start-up cost. Only provides syntax features such as outline, navigation, javadoc, syntax errors.",
+        "Provides full features with better responsiveness. It starts a standard language server and a secondary syntax server. The syntax server provides syntax features until the standard server is ready."
+      ],
+      "order": 30,
+      "scope": "window",
+      "type": "string"
+    },
+    "java.sharedIndexes.enabled": {
+      "default": "auto",
+      "enum": [
+        "auto",
+        "on",
+        "off"
+      ],
+      "markdownDescription": "[Experimental] Specify whether to share indexes between different workspaces. When set to `auto`, shared indexes will be enabled in Visual Studio Code - Insiders.",
+      "order": 50,
+      "scope": "window",
+      "type": "string"
+    },
+    "java.sharedIndexes.location": {
+      "default": "",
+      "markdownDescription": "Specifies a common index location for all workspaces. See default values as follows:\n \nWindows: First use `\"$APPDATA\\\\.jdt\\\\index\"`, or `\"~\\\\.jdt\\\\index\"` if it does not exist\n \nmacOS: `\"~/Library/Caches/.jdt/index\"`\n \nLinux: First use `\"$XDG_CACHE_HOME/.jdt/index\"`, or `\"~/.cache/.jdt/index\"` if it does not exist",
+      "order": 60,
+      "scope": "window",
+      "type": "string"
+    },
+    "java.trace.server": {
+      "default": "off",
+      "description": "Traces the communication between VS Code and the Java language server.",
+      "enum": [
+        "off",
+        "messages",
+        "verbose"
+      ],
+      "scope": "window",
+      "type": "string"
+    },
+    "redhat.telemetry.enabled": {
+      "default": null,
+      "markdownDescription": "Enable usage data and errors to be sent to Red Hat servers. Read our [privacy statement](https://developers.redhat.com/article/tool-data-collection).",
+      "scope": "window",
+      "tags": [
+        "usesOnlineServices",
+        "telemetry"
+      ],
+      "type": "boolean"
+    }
+  }
+}

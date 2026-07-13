@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Setting of omnisharp",
+  "properties": {
+    "dotnet.defaultSolution": {
+      "description": "%configuration.dotnet.defaultSolution.description%",
+      "order": 0,
+      "type": "string"
+    }
+  }
+}

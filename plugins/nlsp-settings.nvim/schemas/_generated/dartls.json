@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Setting of dartls",
+  "properties": {
+    "dart.additionalAnalyzerFileExtensions": {
+      "default": [],
+      "description": "Additional file extensions that should be analyzed (usually used in combination with analyzer plugins).",
+      "items": {
+        "type": "string"
+      },
+      "scope": "window",
+      "type": "array"
+    },
+    "dart.analysisExcludedFolders": {
+      "default": [],
+      "description": "An array of paths to be excluded from Dart analysis. This option should usually be set at the Workspace level. Excluded folders will also be ignored when detecting project types.",
+      "items": {
+        "type": "string"
+      },
+      "scope": "resource",
+      "type": "array"
+    },
+    "dart.analyzeAngularTemplates": {
+      "default": true,
+      "markdownDescription": "Whether to enable analysis for AngularDart templates (requires the Angular analyzer plugin to be enabled in `analysis_options.yaml`).",
+      "scope": "window",
+      "type": "boolean"
+    },
+    "dart.analyzerAdditionalArgs": {
+      "default": [],
+      "description": "Additional arguments to pass to the Dart Analysis Server. This setting is can be useful for troubleshooting issues with the Dart Analysis Server.",
+      "items": {
+        "type": "string"
+      },
+      "scope": "window",
+      "type": "array"
+    },
+    "dart.analyzerDiagnosticsPort": {
+      "default": null,
+      "description": "The port number to be used for the Dart analyzer diagnostic server. This setting is can be useful for troubleshooting issues with the Dart Analysis Server.",
+      "scope": "window",
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "dart.analyzerPath": {
+      "default": null,
+      "description": "The path to a custom Dart Analysis Server. This setting is intended for use by Dart Analysis Server developers.",
+      "scope": "machine-overridable",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dart.analyzerSshHost": {
+      "default": null,
+      "description": "An SSH host to run the Analysis Server.\nThis can be useful when modifying code on a remote machine using SSHFS.",
+      "scope": "window",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "dart.analyzerVmAdditionalArgs": {
+      "default": [],
+      "description": "Additional arguments to pass to the VM running the Dart Analysis Server. This setting is can be useful for troubleshooting issues with the Dart Analysis Server.",
+      "items": {
+        "type": "string"
+      },
+      "scope": "window",
+      "type": "array"
+    },
+    "dart.analyzerVmServicePort": {
+      "default": null,
+      "description": "The port number to be used for the Dart Analysis Server VM service. This setting is intended for use by Dart Analysis Server developers.",
+      "scope": "window",
+      "type": [
+        "null",
+        "number"
+      ]
+    },
+    "dart.includeDependenciesInWorkspaceSymbols": {
+      "default": true,
+      "markdownDescription": "Whether to include symbols from the SDK and package dependencies in the \"Go to Symbol in Workspace\" (`cmd/ctrl`+`T`) list. This can only be disabled when using Dart 3.0 / Flutter 3.10 or later.",
+      "scope": "window",
+      "type": "boolean"
+    },
+    "dart.notifyAnalyzerErrors": {
+      "default": true,
+      "description": "Whether to show a notification the first few times an Analysis Server exception occurs.",
+      "scope": "window",
+      "type": "boolean"
+    },
+    "dart.onlyAnalyzeProjectsWithOpenFiles": {
+      "default": false,
+      "description": "Whether to ignore workspace folders and perform analysis based on the open files, as if no workspace was open at all. This allows opening large folders without causing them to be completely analyzed.",
+      "scope": "window",
+      "type": "boolean"
+    },
+    "dart.showExtensionRecommendations": {
+      "default": true,
+      "description": "Whether to show recommendations for other VS Code extensions based on the packages you're using.",
+      "scope": "window",
+      "type": "boolean"
+    },
+    "dart.showTodos": {
+      "default": true,
+      "description": "Whether to show TODOs in the Problems list. Can be a boolean to enable all TODO comments (TODO, FIXME, HACK, UNDONE) or an array of which types to enable. Older Dart SDKs may not support some TODO kinds.",
+      "items": {
+        "type": "string"
+      },
+      "scope": "window",
+      "type": [
+        "boolean",
+        "array"
+      ]
+    },
+    "dart.useLegacyAnalyzerProtocol": {
+      "default": false,
+      "markdownDescription": "Whether to use the Dart Analyzer's original protocol instead of LSP. Some features are not supported when using the legacy protocol and support for it will eventually be removed. Please file issues on GitHub in the Dart Code repo if you find yourself needing to enable this setting.",
+      "scope": "window",
+      "type": "boolean"
+    }
+  }
+}

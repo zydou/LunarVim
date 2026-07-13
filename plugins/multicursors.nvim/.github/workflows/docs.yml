@@ -1,0 +1,48 @@
+name: panvimdoc
+
+on: [push]
+
+jobs:
+ changes:
+    runs-on: ubuntu-latest
+    # Required permissions
+    permissions:
+      pull-requests: read
+    outputs:
+      readme: ${{ steps.filter.outputs.readme }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          readme:
+            - 'README.md'
+ docs:
+    needs: changes
+    if: ${{ needs.changes.outputs.readme == 'true' }}
+    runs-on: ubuntu-latest
+    name: pandoc to vimdoc
+    steps:
+      - uses: actions/checkout@v3
+      - name: panvimdoc
+        uses: kdheepak/panvimdoc@main
+        with:
+          vimdoc: multicursors
+          # The following are all optional
+          pandoc: "README.md" # Input pandoc file
+          version: "NVIM v0.9.1" # Vim version number
+          toc: true # Table of contents
+          description: "A multicursor plugin for nvim" # Project Description
+          demojify: false # Strip emojis from the vimdoc
+          dedupsubheadings: true # Add heading to subheading anchor links to ensure that subheadings are unique
+          treesitter: true # Use treesitter for highlighting codeblocks
+          ignorerawblocks: true # Ignore raw html blocks in markdown when converting to vimdoc
+          docmapping: false # Use h4 headers as mapping docs
+          docmappingprojectname: true # Use project name in tag when writing mapping docs
+          shiftheadinglevelby: 0 # Shift heading levels by specified number
+          incrementheadinglevelby: 0 # Increment heading levels by specified number
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+            commit_message: "chore: Auto generate docs"
+            branch: ${{ github.head_ref }}
