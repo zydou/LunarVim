@@ -98,16 +98,4 @@ function M:init(base_dir)
   return self
 end
 
----Update LunarVim
----pulls the latest changes from github and, resets the startup cache
-function M:update()
-  require("lvim.core.log"):info("Trying to update LunarVim...")
-
-  vim.schedule(function()
-    reload("lvim.utils.hooks").run_pre_update()
-    local ret = reload("lvim.utils.git").update_base_lvim()
-    if ret then reload("lvim.utils.hooks").run_post_update() end
-  end)
-end
-
 return M

@@ -280,7 +280,6 @@ M.config = function()
           N = { "<cmd>edit $NVIM_LOG_FILE<cr>", "Open the Neovim logfile" },
         },
         r = { "<cmd>LvimReload<cr>", "Reload LunarVim's configuration" },
-        u = { "<cmd>LvimUpdate<cr>", "Update LunarVim" },
       },
       s = {
         name = "Search",

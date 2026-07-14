@@ -47,14 +47,6 @@ M.defaults = {
     fn = function() require("lvim.config"):reload() end,
   },
   {
-    name = "LvimUpdate",
-    fn = function() require("lvim.bootstrap"):update() end,
-  },
-  {
-    name = "LvimSyncCorePlugins",
-    fn = function() require("lvim.plugin-loader").sync_core_plugins() end,
-  },
-  {
     name = "LvimChangelog",
     fn = function() require("lvim.core.telescope.custom-finders").view_lunarvim_changelog() end,
   },

@@ -1,7 +1,6 @@
 local M = {}
 
 local Log = require("lvim.core.log")
-local fmt = string.format
 local if_nil = vim.F.if_nil
 
 local function git_cmd(opts)
@@ -24,76 +23,6 @@ local function git_cmd(opts)
   if not vim.tbl_isempty(stdout) then Log:debug(stdout) end
 
   return ret, stdout, stderr
-end
-
-local function safe_deep_fetch()
-  local ret, result, error = git_cmd({ args = { "rev-parse", "--is-shallow-repository" } })
-  if ret ~= 0 then
-    Log:error(vim.inspect(error))
-    return
-  end
-  -- git fetch --unshallow will cause an error on a complete clone
-  local fetch_mode = result[1] == "true" and "--unshallow" or "--all"
-  ret = git_cmd({ args = { "fetch", fetch_mode } })
-  if ret ~= 0 then
-    Log:error(fmt("Git fetch %s failed! Please pull the changes manually in %s"), fetch_mode, get_lvim_base_dir())
-    return
-  end
-  if fetch_mode == "--unshallow" then
-    ret = git_cmd({ args = { "remote", "set-branches", "origin", "*" } })
-    if ret ~= 0 then
-      Log:error(fmt("Git fetch %s failed! Please pull the changes manually in %s"), fetch_mode, get_lvim_base_dir())
-      return
-    end
-  end
-  return true
-end
-
----pulls the latest changes from github
-function M.update_base_lvim()
-  Log:info("Checking for updates")
-
-  if not vim.loop.fs_access(get_lvim_base_dir(), "w") then
-    Log:warn(fmt("Lunarvim update aborted! cannot write to %s", get_lvim_base_dir()))
-    return
-  end
-
-  if not safe_deep_fetch() then return end
-
-  local ret
-
-  ret = git_cmd({ args = { "diff", "--quiet", "@{upstream}" } })
-  if ret == 0 then
-    Log:info("LunarVim is already up-to-date")
-    return
-  end
-
-  ret = git_cmd({ args = { "merge", "--ff-only", "--progress" } })
-  if ret ~= 0 then
-    Log:error("Update failed! Please pull the changes manually in " .. get_lvim_base_dir())
-    return
-  end
-
-  return true
-end
-
----Switch Lunarvim to the specified development branch
----@param branch string
-function M.switch_lvim_branch(branch)
-  if not safe_deep_fetch() then return end
-  local args = { "switch", branch }
-
-  if branch:match("^[0-9]") then
-    -- avoids producing an error for tags
-    vim.list_extend(args, { "--detach" })
-  end
-
-  local ret = git_cmd({ args = args })
-  if ret ~= 0 then
-    Log:error("Unable to switch branches! Check the log for further information")
-    return
-  end
-  return true
 end
 
 ---Get the current Lunarvim development branch
