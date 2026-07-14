@@ -1,62 +1,64 @@
-; Keywords
-(scheme) @module
-
 ; Methods
 (method) @function.method
 
 ; Headers
 (header
-  name: (name) @constant)
+  name: (_) @constant)
+
+(header
+  value: (_) @string)
 
 ; Variables
+(identifier) @variable
+
 (variable_declaration
-  name: (identifier) @variable)
+  "@" @character.special)
 
-; Fields
-(pair
-  name: (identifier) @variable.member)
-
-; URL / Host
-(host) @string.special.url
-
-(path
-  (identifier) @string.special.url)
-
-; Parameters
-(query_param
-  (key) @variable.parameter)
+(variable_declaration
+  (value) @string)
 
 ; Operators
-[
-  "="
-  "?"
-  "&"
-  "@"
-  "<"
-] @operator
+(comment
+  "=" @operator)
+
+(variable_declaration
+  "=" @operator)
+
+; keywords
+(comment
+  "@" @keyword
+  name: (_) @keyword)
 
 ; Literals
-(target_url) @string.special.url
+(request
+  url: (_) @string.special.url)
 
-(http_version) @constant
+(http_version) @string.special
 
-(string) @string
+; Response
+(status_code) @number
 
-(number) @number
-
-(boolean) @boolean
+(status_text) @string
 
 ; Punctuation
 [
   "{{"
   "}}"
+  "{%"
+  "%}"
 ] @punctuation.bracket
 
-":" @punctuation.delimiter
+">" @punctuation.special
+
+(header
+  ":" @punctuation.delimiter)
 
 ; external JSON body
 (external_body
-  file_path: (path) @string.special.path)
+  path: (_) @string.special.path)
 
 ; Comments
-(comment) @comment @spell
+[
+  (comment)
+  (request_separator)
+] @comment @spell

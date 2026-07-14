@@ -120,6 +120,9 @@
 (binding
   name: (identifier) @variable.parameter)
 
+(lambda_expression
+  parameters: (identifier) @variable.parameter)
+
 ; expressions
 (field_expression
   field: (identifier) @variable.member)
@@ -154,8 +157,6 @@
 
 (character_literal) @character
 
-(symbol_literal) @string.special.symbol
-
 (interpolation
   "$" @punctuation.special)
 
@@ -177,7 +178,6 @@
   ; `macro` not implemented yet
   "object"
   "override"
-  "package"
   "val"
   "var"
   "with"
@@ -209,7 +209,14 @@
 
 (null_literal) @constant.builtin
 
-(wildcard) @variable.parameter
+(wildcard
+  "_") @character.special
+
+(namespace_wildcard
+  [
+    "*"
+    "_"
+  ] @character.special)
 
 (annotation) @attribute
 
@@ -235,6 +242,7 @@
 [
   "."
   ","
+  ":"
 ] @punctuation.delimiter
 
 [
@@ -248,6 +256,9 @@
 
 [
   "=>"
+  "?=>"
+  "="
+  "!"
   "<-"
   "@"
 ] @operator
@@ -255,6 +266,7 @@
 [
   "import"
   "export"
+  "package"
 ] @keyword.import
 
 [
@@ -277,6 +289,10 @@
 (case_block
   (case_clause
     "case" @keyword.conditional))
+
+(case_block
+  (case_clause
+    "=>" @punctuation.delimiter))
 
 (operator_identifier) @operator
 

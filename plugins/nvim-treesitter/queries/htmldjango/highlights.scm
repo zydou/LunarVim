@@ -10,7 +10,7 @@
   "{%"
   "%}"
   (end_paired_statement)
-] @punctuation.bracket
+] @punctuation.special
 
 (tag_name) @function
 
@@ -21,6 +21,15 @@
   (#any-of? @keyword.repeat "for" "endfor"))
 
 (variable_name) @variable
+
+(unpaired_statement
+  (tag_name)
+  (variable
+    (variable_name) @variable.parameter)
+  .
+  "="
+  .
+  (_))
 
 (filter_name) @function.method
 
@@ -60,6 +69,5 @@
 
 [
   ":"
-  "'"
-  "\""
+  ","
 ] @punctuation.delimiter

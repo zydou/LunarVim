@@ -57,13 +57,13 @@ function M._get_line_for_node(node, type_patterns, transform_fn, bufnr)
 end
 
 -- Gets the actual text content of a node
--- @deprecated Use vim.treesitter.query.get_node_text
+-- @deprecated Use vim.treesitter.get_node_text
 -- @param node the node to get the text from
 -- @param bufnr the buffer containing the node
 -- @return list of lines of text of the node
 function M.get_node_text(node, bufnr)
   vim.notify_once(
-    "nvim-treesitter.ts_utils.get_node_text is deprecated: use vim.treesitter.query.get_node_text",
+    "nvim-treesitter.ts_utils.get_node_text is deprecated: use vim.treesitter.get_node_text",
     vim.log.levels.WARN
   )
   return get_node_text(node, bufnr)
@@ -202,12 +202,26 @@ function M.get_root_for_position(line, col, root_lang_tree)
 
   local lang_tree = root_lang_tree:language_for_range { line, col, line, col }
 
-  for _, tree in pairs(lang_tree:trees()) do
-    local root = tree:root()
+  while true do
+    for _, tree in pairs(lang_tree:trees()) do
+      local root = tree:root()
 
-    if root and ts.is_in_node_range(root, line, col) then
-      return root, tree, lang_tree
+      if root and ts.is_in_node_range(root, line, col) then
+        return root, tree, lang_tree
+      end
     end
+
+    if lang_tree == root_lang_tree then
+      break
+    end
+
+    -- This case can happen when the cursor is at the start of a line that ends a injected region,
+    -- e.g., the first `]` in the following lua code:
+    -- ```
+    -- vim.cmd[[
+    -- ]]
+    -- ```
+    lang_tree = lang_tree:parent() -- NOTE: parent() method is private
   end
 
   -- This isn't a likely scenario, since the position must belong to a tree somewhere.
@@ -397,6 +411,7 @@ function M.swap_nodes(node_or_range1, node_or_range2, bufnr, cursor_to_second)
 
   local edit1 = { range = range1, newText = table.concat(text2, "\n") }
   local edit2 = { range = range2, newText = table.concat(text1, "\n") }
+  bufnr = bufnr == 0 and vim.api.nvim_get_current_buf() or bufnr
   vim.lsp.util.apply_text_edits({ edit1, edit2 }, bufnr, "utf-8")
 
   if cursor_to_second then

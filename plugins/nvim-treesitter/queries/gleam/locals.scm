@@ -24,8 +24,8 @@
 ; References
 (identifier) @local.reference
 
-; Function Body Scope
-(function_body) @local.scope
+; Block Scope
+(block) @local.scope
 
 ; Case Scope
 (case_clause) @local.scope

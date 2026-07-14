@@ -32,9 +32,23 @@
 ("continue" @keyword.repeat
   (block))
 
+[
+  "try"
+  "catch"
+  "finally"
+] @keyword.exception
+
 "return" @keyword.return
 
-"sub" @keyword.function
+[
+  "sub"
+  "method"
+] @keyword.function
+
+[
+  "async"
+  "await"
+] @keyword.coroutine
 
 [
   "map"
@@ -42,14 +56,22 @@
   "sort"
 ] @function.builtin
 
-"package" @keyword.import
+[
+  "package"
+  "class"
+  "role"
+] @keyword.import
 
 [
+  "defer"
   "do"
+  "eval"
   "my"
   "our"
   "local"
+  "dynamically"
   "state"
+  "field"
   "last"
   "next"
   "redo"
@@ -67,10 +89,16 @@
 (phaser_statement
   phase: _ @keyword)
 
+(class_phaser_statement
+  phase: _ @keyword)
+
 [
   "or"
+  "xor"
   "and"
   "eq"
+  "equ"
+  "eqr"
   "ne"
   "cmp"
   "lt"
@@ -90,6 +118,8 @@
   (number)
   (version)
 ] @number
+
+(boolean) @boolean
 
 [
   (string_literal)
@@ -129,10 +159,16 @@
 (package_statement
   (package) @type)
 
+(class_statement
+  (package) @type)
+
 (require_expression
   (bareword) @type)
 
 (subroutine_declaration_statement
+  name: (bareword) @function)
+
+(method_declaration_statement
   name: (bareword) @function)
 
 (attribute_name) @attribute
@@ -207,50 +243,65 @@
   ; highlights punc vars and also numeric only like $11
   (#lua-match? @variable.builtin "^%A+$"))
 
-(scalar) @variable
-
-(scalar_deref_expression
-  [
-    "$"
-    "*"
-  ] @variable)
-
 [
+  (scalar)
   (array)
-  (arraylen)
+  (hash)
+  (glob)
+  ; arraylen's sigil is kinda special b/c it's not a data type
+  (arraylen
+    "$#" @operator)
 ] @variable
 
-(array_deref_expression
+; all post deref sigils highlighted as operators, and the unrolly star is a special char
+(postfix_deref
   [
+    "$"
     "@"
-    "*"
-  ] @variable)
-
-(hash) @variable
-
-(hash_deref_expression
-  [
     "%"
     "*"
-  ] @variable)
+    "$#"
+  ] @operator
+  "*" @character.special)
 
-(array_element_expression
-  array: (_) @variable)
+(slices
+  [
+    arrayref: _
+    hashref: _
+  ]
+  [
+    "@"
+    "%"
+  ] @operator)
 
-(slice_expression
-  array: (_) @variable)
+; except for subref deref, b/c that's actually a function call
+(amper_deref_expression
+  [
+    "&"
+    "*"
+  ] @function.call)
 
-(keyval_expression
-  array: (_) @variable)
+; mark hash or glob keys that are any form of string in any form of access
+(_
+  "{"
+  [
+    (autoquoted_bareword)
+    (_
+      (string_content))
+  ] @variable.member
+  "}")
 
-(hash_element_expression
-  hash: (_) @variable)
-
-(slice_expression
-  hash: (_) @variable)
-
-(keyval_expression
-  hash: (_) @variable)
+; mark stringies on the LHS of a fat comma as a hash key, b/c that's usually what it
+; denotes somewhat
+(_
+  [
+    (autoquoted_bareword)
+    (_
+      (string_content))
+  ] @variable.member
+  .
+  "=>"
+  (_))
 
 (comment) @comment @spell
 
@@ -270,4 +321,4 @@
   ")"
 ] @punctuation.bracket
   ; priority hack so nvim + ts-cli behave the same
-  (#set! "priority" 90))
+  (#set! priority 90))

@@ -145,10 +145,10 @@
 
 ; Parameters
 (required_parameter
-  (identifier) @variable.parameter)
+  pattern: (identifier) @variable.parameter)
 
 (optional_parameter
-  (identifier) @variable.parameter)
+  pattern: (identifier) @variable.parameter)
 
 (required_parameter
   (rest_pattern
@@ -192,6 +192,9 @@
 ; method signatures
 (method_signature
   name: (_) @function.method)
+
+(abstract_method_signature
+  name: (property_identifier) @function.method)
 
 ; property signatures
 (property_signature

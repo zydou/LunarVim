@@ -14,7 +14,21 @@
 
 (module_path) @string.special.url
 
+(tool_directive) @keyword.directive
+
+(tool) @string.special.url
+
 [
   (version)
   (go_version)
-] @string
+  (toolchain_name)
+] @string.special
+
+[
+  "("
+  ")"
+  "["
+  "]"
+] @punctuation.bracket
+
+"," @punctuation.delimiter

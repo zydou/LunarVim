@@ -1,27 +1,38 @@
 ; Scopes       @local.scope
 ; -------------------------
 [
-  (static_function)
+  (asm_function)
+  (global_function)
   (init_function)
   (bounced_function)
   (receive_function)
   (external_function)
-  (function)
+  (storage_function)
   (block_statement)
 ] @local.scope
 
 ; Definitions  @local.definition
 ; ------------------------------
 ; variables
+(storage_variable
+  name: (identifier) @local.definition.var)
+
 (let_statement
   name: (identifier) @local.definition.var)
 
 ; constants
-(constant
+(global_constant
+  name: (identifier) @local.definition.constant)
+
+(storage_constant
   name: (identifier) @local.definition.constant)
 
 ; functions
-(static_function
+(asm_function
+  name: (identifier) @local.definition.function
+  (#set! definition.var.scope parent))
+
+(global_function
   name: (identifier) @local.definition.function
   (#set! definition.var.scope parent))
 
@@ -42,7 +53,7 @@
   "external" @local.definition.method
   (#set! definition.var.scope parent))
 
-(function
+(storage_function
   name: (identifier) @local.definition.method
   (#set! definition.var.scope parent))
 
@@ -53,13 +64,13 @@
 ; user-defined types (structs and messages)
 (type_identifier) @local.definition.type
 
-; fields (and properties)
+; fields (of messages and structs)
 (field
   name: (identifier) @local.definition.field)
 
 ; imports
-(import_statement
-  (string) @local.definition.import)
+(import
+  name: (string) @local.definition.import)
 
 ; References   @local.reference
 ; -----------------------------
@@ -68,5 +79,5 @@
 (value_expression
   (identifier) @local.reference)
 
-(lvalue
-  (identifier) @local.reference)
+(field_access_expression
+  name: (identifier) @local.reference)

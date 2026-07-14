@@ -1,17 +1,18 @@
 ; Types
+; Variables
+(identifier) @variable
+
+; Nodes
 (node
+  (identifier) @tag)
+
+; Type annotation
+(type
   (identifier) @type)
-
-(type) @type
-
-(annotation_type) @type.builtin
 
 ; Properties
 (prop
   (identifier) @property)
-
-; Variables
-(identifier) @variable
 
 ; Operators
 [
@@ -58,13 +59,13 @@
 
 (node
   (node_comment)
-  (#set! "priority" 105)) @comment
+  (#set! priority 105)) @comment
 
 (node
   (node_field
     (node_field_comment)
-    (#set! "priority" 105)) @comment)
+    (#set! priority 105)) @comment)
 
 (node_children
   (node_children_comment)
-  (#set! "priority" 105)) @comment
+  (#set! priority 105)) @comment

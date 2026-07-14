@@ -53,14 +53,17 @@
 ; Keywords
 [
   "as"
+  "copy"
   "for"
   "impl"
+  "in"
+  "inline"
   "let"
+  "move"
   "mut"
+  "recover"
   "ref"
   "uni"
-  "move"
-  "recover"
 ] @keyword
 
 "fn" @keyword.function
@@ -73,8 +76,8 @@
 ] @keyword.operator
 
 [
-  "class"
   "trait"
+  "type"
 ] @keyword.type
 
 [
@@ -140,6 +143,8 @@
 (string_pattern) @string
 
 (constant_pattern) @constant
+
+(boolean_pattern) @boolean
 
 ; Types
 (generic_type

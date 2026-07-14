@@ -2,6 +2,8 @@
 ; Variables
 (identifier) @variable
 
+(underscore_pattern) @character.special
+
 ; Methods
 (method_declaration
   name: (identifier) @function.method)
@@ -13,9 +15,6 @@
 
 ; Parameters
 (formal_parameter
-  name: (identifier) @variable.parameter)
-
-(catch_formal_parameter
   name: (identifier) @variable.parameter)
 
 (spread_parameter
@@ -256,6 +255,10 @@
   "requires"
   "uses"
 ] @keyword.import
+
+(import_declaration
+  (asterisk
+    "*" @character.special))
 
 ; Punctuation
 [

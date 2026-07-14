@@ -32,6 +32,12 @@
 (field_access_expr
   (identifier) @variable.member)
 
+;highlight module members as records instead of free variables
+; avoids highlighting them as out-of-scope vars
+(variable_expr
+  (module)
+  (identifier) @variable.member)
+
 ;----comments----
 (line_comment) @comment @spell
 
@@ -41,8 +47,8 @@
 [
   "?"
   (arrow)
-  (back_arrow)
-  (backslash)
+  (fat_arrow)
+  "|"
   ","
   ":"
 ] @punctuation.delimiter
@@ -59,10 +65,12 @@
 [
   "|"
   "&"
+  "<-"
+  ".."
   (operator)
 ] @operator
 
-(wildcard_pattern) @constant.builtin
+(wildcard_pattern) @character.special
 
 [
   "if"
@@ -74,44 +82,20 @@
   (implements)
   (when)
   (is)
+  (as)
   "as"
   (to)
 ] @keyword
 
 ;----headers-----
-(interface_header
-  (name) @type.definition)
-
-(imports
-  (imports_entry
-    (module) @module))
-
-(packages
-  (record_pattern
-    (record_field_pattern
-      (field_name) @module)))
-
-(app_name) @string.special
-
-(import_path) @string.special.path
-
 [
   "app"
-  "packages"
-  "provides"
-  "interface"
-  "exposes"
   "expect"
+  "module"
+  "package"
 ] @keyword
 
-[
-  (import_as)
-  "imports"
-] @keyword.import
-
-(backpassing_expr
-  assignee: (identifier_pattern
-    (identifier) @variable.parameter))
+"import" @keyword.import
 
 (value_declaration
   (decl_left
@@ -122,8 +106,7 @@
 
 ;----tags----
 (tags_type
-  (apply_type
-    (concrete_type) @constructor))
+  (tag_type) @constructor)
 
 [
   (tag)
@@ -140,11 +123,11 @@
 "dbg" @keyword.debug
 
 ;----function invocations ----
-(function_call_expr
+(function_call_pnc_expr
   caller: (variable_expr
     (identifier) @function.call))
 
-(function_call_expr
+(function_call_pnc_expr
   caller: (field_access_expr
     (identifier) @function.call .))
 
@@ -184,6 +167,9 @@
   (float)
 ] @number.float
 
-(string) @string
+[
+  (string)
+  (multiline_string)
+] @string
 
 (char) @character

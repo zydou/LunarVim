@@ -2,6 +2,10 @@
 ; --------
 (identifier) @variable
 
+(destruct_bind
+  name: (identifier) @variable.member
+  bind: (identifier) @variable)
+
 ; variable.builtin
 ; ----------------
 (self) @variable.builtin
@@ -51,14 +55,23 @@
   "<"
   "<="
   "<<"
+  "<<="
   ">"
   ">="
   ">>"
+  ">>="
   "&"
+  "&="
   "|"
+  "|="
   "^"
+  "^="
   "&&"
+  "&&="
   "||"
+  "||="
+  "->"
+  ".."
 ] @operator
 
 ; constructor
@@ -69,6 +82,9 @@
 (initOf
   name: (identifier) @constructor)
 
+(codeOf
+  name: (identifier) @constructor)
+
 ; type
 ; ----
 (type_identifier) @type
@@ -76,7 +92,11 @@
 ; type.builtin
 ; ------------
 ((identifier) @type.builtin
-  (#eq? @type.builtin "SendParameters"))
+  (#any-of? @type.builtin "Context" "SendParameters" "StateInit" "StdAddress" "VarAddress"))
+
+(generic_parameter_list
+  "<" @punctuation.bracket
+  ">" @punctuation.bracket)
 
 (bounced_type
   "bounced" @type.builtin
@@ -93,10 +113,7 @@
 
 (tlb_serialization
   "as" @keyword
-  type: (identifier) @type.builtin
-  (#any-of? @type.builtin
-    "int8" "int16" "int32" "int64" "int128" "int256" "int257" "uint8" "uint16" "uint32" "uint64"
-    "uint128" "uint256" "coins" "remaining" "bytes32" "bytes64"))
+  type: (identifier) @type)
 
 ; string
 ; ------
@@ -108,8 +125,8 @@
 
 ; string.special.path
 ; -------------------
-(import_statement
-  library: (string) @string.special.path)
+(import
+  name: (string) @string.special.path)
 
 ; boolean
 ; -------
@@ -117,7 +134,10 @@
 
 ; constant
 ; --------
-(constant
+(global_constant
+  name: (identifier) @constant)
+
+(storage_constant
   name: (identifier) @constant)
 
 ; constant.builtin
@@ -126,31 +146,23 @@
 
 ((identifier) @constant.builtin
   (#any-of? @constant.builtin
-    "SendBounceIfActionFail" "SendPayGasSeparately" "SendIgnoreErrors" "SendDestroyIfZero"
-    "SendRemainingValue" "SendRemainingBalance" "ReserveExact" "ReserveAllExcept" "ReserveAtMost"
-    "ReserveAddOriginalBalance" "ReserveInvertSign" "ReserveBounceIfActionFail"))
+    "SendDefaultMode" "SendBounceIfActionFail" "SendPayGasSeparately" "SendIgnoreErrors"
+    "SendDestroyIfZero" "SendRemainingValue" "SendRemainingBalance" "SendOnlyEstimateFee"
+    "ReserveExact" "ReserveAllExcept" "ReserveAtMost" "ReserveAddOriginalBalance"
+    "ReserveInvertSign" "ReserveBounceIfActionFail"))
 
 ; property
 ; --------
 (instance_argument
   name: (identifier) @variable.member)
 
-(lvalue
-  (_)
-  (_) @variable.member)
-
 (field_access_expression
   name: (identifier) @variable.member)
 
-(trait_body
-  (constant
-    name: (identifier) @variable.member))
-
-(contract_body
-  (constant
-    name: (identifier) @variable.member))
-
 (field
+  name: (identifier) @variable.member)
+
+(storage_variable
   name: (identifier) @variable.member)
 
 ; number
@@ -181,11 +193,14 @@
 [
   "fun"
   "native"
+  "asm"
 ] @keyword.function
 
 ; keyword.operator
 ; ----------------
 "initOf" @keyword.operator
+
+"codeOf" @keyword.operator
 
 ; keyword.import
 ; --------------
@@ -248,7 +263,10 @@
 (native_function
   name: (identifier) @function)
 
-(static_function
+(asm_function
+  name: (identifier) @function)
+
+(global_function
   name: (identifier) @function)
 
 (func_identifier) @function
@@ -267,7 +285,7 @@
 (external_function
   "external" @function.method)
 
-(function
+(storage_function
   name: (identifier) @function.method)
 
 ; function.call
@@ -280,24 +298,34 @@
 (method_call_expression
   name: (identifier) @function.method.call)
 
-; function.builtin
-; ----------------
-(static_call_expression
-  name: (identifier) @function.builtin
-  (#any-of? @function.builtin
-    "log" "log2" "send" "sender" "require" "now" "myBalance" "myAddress" "newAddress"
-    "contractAddress" "contractAddressExt" "emit" "cell" "ton" "dump" "dumpStack" "beginString"
-    "beginComment" "beginTailString" "beginStringFromBuilder" "beginCell" "emptyCell" "randomInt"
-    "random" "checkSignature" "checkDataSignature" "sha256" "min" "max" "abs" "pow" "pow2" "throw"
-    "nativeThrowWhen" "nativeThrowUnless" "getConfigParam" "nativeRandomize" "nativeRandomizeLt"
-    "nativePrepareRandom" "nativeRandom" "nativeRandomInterval" "nativeReserve"))
+; asm-specific
+; ------------
+(tvm_instruction) @function.call
 
-; comment
-; -------
-(comment) @comment @spell
+(asm_integer) @number
 
-((comment) @comment.documentation
-  (#lua-match? @comment.documentation "^/[*][*][^*].*[*]/$"))
+(asm_string) @string
+
+(asm_control_register) @string.special.symbol
+
+(asm_stack_register) @string.special.symbol
+
+(asm_hex_bitstring) @function.macro
+
+(asm_bin_bitstring) @function.macro
+
+(asm_boc_hex) @function.macro
+
+(asm_cont_name) @variable
+
+; within asm_sequence
+[
+  "<{"
+  "}>"
+  "}>c"
+  "}>s"
+  "}>CONT"
+] @punctuation.bracket
 
 ; attribute
 ; ---------
@@ -305,3 +333,10 @@
   "@name"
   "@interface"
 ] @attribute
+
+; comment
+; -------
+(comment) @comment @spell
+
+((comment) @comment.documentation
+  (#lua-match? @comment.documentation "^/[*][*][^*].*[*]/$"))

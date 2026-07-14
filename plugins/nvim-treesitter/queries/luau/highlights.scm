@@ -4,10 +4,9 @@
 ; Keywords
 "return" @keyword.return
 
-[
-  "local"
-  "type"
-] @keyword
+"local" @keyword
+
+"type" @keyword.type
 
 "export" @keyword.import
 
@@ -133,12 +132,10 @@
 (identifier) @variable
 
 ; Types
-(type
-  (identifier) @type)
+(type/identifier) @type
 
-(type
-  (generic_type
-    (identifier) @type))
+(generic_type
+  (identifier) @type)
 
 (builtin_type) @type.builtin
 
@@ -162,6 +159,8 @@
 
 ((identifier) @variable.builtin
   (#eq? @variable.builtin "self"))
+
+"..." @variable.builtin
 
 ((identifier) @module.builtin
   (#any-of? @module.builtin "_G" "debug" "io" "jit" "math" "os" "package" "string" "table" "utf8"))

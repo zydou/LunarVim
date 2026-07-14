@@ -1,11 +1,16 @@
 [
-  (Block)
-  (ContainerDecl)
-  (SwitchExpr)
-  (InitList)
+  (block)
+  (struct_declaration)
+  (enum_declaration)
+  (union_declaration)
+  (switch_expression)
+  (if_expression)
+  (while_expression)
+  (for_expression)
+  (initializer_list)
 ] @indent.begin
 
-(Block
+(block
   "}" @indent.end)
 
 [
@@ -18,8 +23,6 @@
 ] @indent.branch
 
 [
-  (line_comment)
-  (container_doc_comment)
-  (doc_comment)
-  (LINESTRING)
+  (comment)
+  (multiline_string)
 ] @indent.ignore

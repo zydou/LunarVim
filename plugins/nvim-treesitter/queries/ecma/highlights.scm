@@ -43,10 +43,6 @@
 
 (statement_identifier) @label
 
-(glimmer_opening_tag) @tag.builtin
-
-(glimmer_closing_tag) @tag.builtin
-
 ; Function and method definitions
 ;--------------------------------
 (function_expression
@@ -117,6 +113,18 @@
       (private_property_identifier)
     ] @function.method.call))
 
+(call_expression
+  function: (await_expression
+    (identifier) @function.call))
+
+(call_expression
+  function: (await_expression
+    (member_expression
+      property: [
+        (property_identifier)
+        (private_property_identifier)
+      ] @function.method.call)))
+
 ; Builtins
 ;---------
 ((identifier) @module.builtin
@@ -131,11 +139,6 @@
 ;------------
 (new_expression
   constructor: (identifier) @constructor)
-
-; Variables
-;----------
-(namespace_import
-  (identifier) @module)
 
 ; Decorators
 ;----------
@@ -301,6 +304,19 @@
     "${"
     "}"
   ] @punctuation.special) @none
+
+; Imports
+;----------
+(namespace_import
+  "*" @character.special
+  (identifier) @module)
+
+(namespace_export
+  "*" @character.special
+  (identifier) @module)
+
+(export_statement
+  "*" @character.special)
 
 ; Keywords
 ;----------
