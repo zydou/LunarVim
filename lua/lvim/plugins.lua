@@ -284,7 +284,7 @@ local core_plugins = {
       })
     end,
   },
-  { -- pretty list for diagnostics, references, telescope results
+  { -- pretty list for diagnostics, references, telescope results, quickfix and location lists
     dir = plugin_dir("trouble.nvim"),
     cmd = "Trouble",
     opts = {},
@@ -305,24 +305,30 @@ local core_plugins = {
     config = function()
       require("noice").setup({
         lsp = {
+          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
             ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
+            ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
           },
         },
         routes = {
           {
-            filter = { event = "msg_show", kind = "", find = "written" },
+            filter = {
+              event = "msg_show",
+              kind = "",
+              find = "written", -- hide written messages
+            },
             opts = { skip = true },
           },
         },
+        -- you can enable a preset for easier configuration
         presets = {
-          bottom_search = true,
-          command_palette = true,
-          long_message_to_split = true,
-          inc_rename = false,
-          lsp_doc_border = true,
+          bottom_search = true, -- use a classic bottom cmdline for search
+          command_palette = true, -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false, -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = true, -- add a border to hover docs and signature help
         },
       })
     end,
@@ -395,7 +401,7 @@ local core_plugins = {
               staged = "",
             },
           },
-          file_size = { enabled = true, required_width = 40 },
+          file_size = { enabled = true, required_width = 40 },  -- min width of window required
         },
       })
     end,
@@ -471,67 +477,6 @@ local core_plugins = {
       })
     end,
   },
-  { -- GitHub Copilot
-    dir = plugin_dir("copilot-cmp"),
-    enabled = true,
-    event = "InsertEnter",
-    dependencies = { dir = plugin_dir("copilot.lua") },
-    config = function()
-      vim.defer_fn(function()
-        require("copilot").setup({
-          panel = {
-            enabled = true, auto_refresh = true,
-            keymap = { jump_prev = "[[", jump_next = "]]", accept = "<CR>", refresh = "gr", open = "<M-CR>" },
-            layout = { position = "right", ratio = 0.4 },
-          },
-          suggestion = {
-            enabled = false, auto_trigger = false, debounce = 75,
-            keymap = { accept = "<M-l>", accept_word = false, accept_line = false, next = "<M-]>", prev = "<M-[>", dismiss = "<C-]>" },
-          },
-          filetypes = {
-            yaml = true, markdown = true, help = false, gitcommit = true, gitrebase = false,
-            hgcommit = false, svn = false, cvs = false, ["."] = false,
-            sh = function()
-              if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), "^%.env.*") then return false end
-              return true
-            end,
-          },
-          copilot_node_command = "/home/zydou/.config/nvm/versions/node/v22.22.2/bin/node",
-          server_opts_overrides = {},
-        })
-        require("copilot_cmp").setup()
-      end, 100)
-    end,
-  },
-
--- local default_snapshot_path = join_paths(get_lvim_base_dir(), "snapshots", "default.json")
--- local content = vim.fn.readfile(default_snapshot_path)
--- local default_sha1 = assert(vim.fn.json_decode(content))
-
--- -- taken from <https://github.com/folke/lazy.nvim/blob/c7122d64cdf16766433588486adcee67571de6d0/lua/lazy/core/plugin.lua#L27>
--- local get_short_name = function(long_name)
---   local name = long_name:sub(-4) == ".git" and long_name:sub(1, -5) or long_name
---   local slash = name:reverse():find("/", 1, true) --[[@as number?]]
---   return slash and name:sub(#name - slash + 2) or long_name:gsub("%W+", "_")
--- end
-
--- local get_default_sha1 = function(spec)
---   local short_name = get_short_name(spec.url)
---   return default_sha1[short_name] and default_sha1[short_name].commit
--- end
-
--- if not vim.env.LVIM_DEV_MODE then
---   --  Manually lock the commit hashes of core plugins
---   for _, spec in ipairs(core_plugins) do
---     spec["commit"] = get_default_sha1(spec)
---   end
--- end
-
---- NOTE: get_short_name / get_default_sha1 / commit-locking logic removed.
---- All core plugins are installed locally via `dir =` (offline, no git),
---- so the git-commit-locking code path is dead and caused crashes when
---- LVIM_DEV_MODE was unset (e.g. headless invocations from build scripts).
-
 }
 
 return core_plugins
